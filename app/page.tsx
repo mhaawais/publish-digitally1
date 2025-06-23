@@ -1,9 +1,14 @@
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import Hero1 from "@/components/hero1";
 import React from "react";
 
 export default function Home() {
   return (
     <div>
-      <h1>hello</h1>
+      <Header />
+      <Hero1 />
+      <Footer />
     </div>
   );
 }
