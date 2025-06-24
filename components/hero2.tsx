@@ -38,7 +38,7 @@ const Hero2 = () => {
   }, []);
 
   return (
-    <div className="bg-[#f2f8fb]">
+    <div className="bg-[#c5d1d8]">
       <div
         ref={containerRef}
         className="flex overflow-x-auto whitespace-nowrap no-scrollbar transition-all duration-500"

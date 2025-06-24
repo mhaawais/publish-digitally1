@@ -1,7 +1,6 @@
 'use client';
 
-// import { it } from 'node:test';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
 
 const reviews = [
@@ -98,56 +97,114 @@ From personal memoirs to self-help, business strategies to real-life experiences
   },
 ];
 
+const emojiMap: Record<string, string> = {
+  'Novels Ghostwriting': '📖',
+  'Cookbooks Writing': '🍲',
+  'eBook Writing': '📱',
+  'Business Ghostwriting': '💼',
+  'Beauty Ghostwriting': '💄',
+  'Screenplay Ghostwriting': '🎬',
+  'Article Writing': '📰',
+  'Blog Ghostwriting': '✍️',
+  'Celebrity Writing': '🌟',
+  'Legal Ghostwriting': '⚖️',
+  'Medical Ghostwriting': '🩺',
+  'Health & Fitness Ghostwriting': '🏋️',
+  'Children’s Book Writing': '🧒',
+  'Autobiographies': '🧠',
+  'Self-Help Ghostwriting': '🌱',
+  'Fantasy Ghostwriting': '🐉',
+  'Fiction Ghostwriting': '🧙',
+  'Non-Fiction Ghostwriting': '📘',
+};
+
+const getVisibleCount = (width: number): number => {
+  if (width >= 1024) return 4;
+  if (width >= 768) return 3;
+  if (width >= 640) return 2;
+  return 1;
+};
 
 const Hero3 = () => {
   const [index, setIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(4);
 
-  const next = () => {
-    setIndex((prevIndex) => (prevIndex + 4) % reviews.length);
+  useEffect(() => {
+    const handleResize = () => {
+      setVisibleCount(getVisibleCount(window.innerWidth));
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  });
+
+  const handleNext = () => {
+    setIndex((prev) => (prev + 1) % reviews.length);
   };
 
-  const prev = () => {
-    setIndex((prevIndex) =>
-      prevIndex - 4 < 0 ? reviews.length - (reviews.length % 4 || 4) : prevIndex - 4
-    );
+  const handlePrev = () => {
+    setIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  const visibleReviews = reviews.slice(index, index + 4);
+  const totalWidth = 100 * reviews.length / visibleCount;
 
   return (
-    <div className="bg-[#f9f9f9] py-10 px-4">
-      <div className="max-w-7xl mx-auto text-center">
+    <div className="bg-[#f1faff] py-14 px-4 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-[#052540] text-2xl lg:text-4xl font-bold mb-8 font-serif">
-            Work with Top Book Writing Experts:<br /> Where Every Genre Finds Its Voice
+          <h2 className="text-[#052540] text-3xl lg:text-5xl font-bold mb-4 font-serif leading-tight">
+            Work with Top Book Writing Experts
           </h2>
           <p className="text-[#052540] text-md lg:text-lg">
-            No matter your taste either self-help, suspense, or epic fantasy,<br />
-            we have the perfect book waiting to be written.
+            Where Every Genre Finds Its Voice. <br />
+            Whether it's self-help, suspense, or fantasy—your story deserves the best.
           </p>
         </div>
 
-        <div className="flex justify-between items-center mb-6 px-6">
-          <button onClick={prev}>
-            <MdNavigateBefore size={32} className="text-[#052540]" />
+        <div className="flex justify-center items-center mb-8 space-x-4">
+          <button onClick={handlePrev} className="p-2 bg-[#e6f2f2] hover:bg-[#d3e9e9] rounded-full shadow">
+            <MdNavigateBefore size={28} className="text-[#052540]" />
           </button>
-          <button onClick={next}>
-            <MdNavigateNext size={32} className="text-[#052540]" />
+          <button onClick={handleNext} className="p-2 bg-[#e6f2f2] hover:bg-[#d3e9e9] rounded-full shadow">
+            <MdNavigateNext size={28} className="text-[#052540]" />
           </button>
         </div>
 
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-6">
-          {visibleReviews.map((review, i) => (
-            <div
-              key={i}
-              className="bg-blue-100 hover:bg-blue-200 transition duration-300 rounded-lg p-6 shadow-md text-left"
-            >
-              <span className="font-bold text-[#052540] capitalize text-lg block mb-2">
-                {review.name}
-              </span>
-              <p className="text-gray-700 text-sm leading-snug">{review.review}</p>
-            </div>
-          ))}
+        <div className="relative overflow-hidden w-full">
+          <div
+            className="flex transition-transform duration-1000 ease-in-out"
+            style={{
+              width: `${totalWidth}%`,
+              transform: `translateX(-${(100 / reviews.length) * index}%)`,
+            }}
+          >
+            {reviews.map((review, i) => (
+              <div
+                key={i}
+                className="p-4"
+                style={{ width: `${100 / reviews.length}%`, flexShrink: 0 }}
+              >
+                <div className="bg-[#c5d1d8] hover:bg-[#cdcdd3] transition duration-300 rounded-xl p-6 border border-blue-100 h-full">
+                  <div className="text-3xl mb-2 text-center">
+                    {emojiMap[review.name] || '📚'}
+                  </div>
+                  <span className="text-lg font-semibold text-[#052540] mb-2 block text-center">
+                    {review.name}
+                  </span>
+                  <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line">
+                    {review.review}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
