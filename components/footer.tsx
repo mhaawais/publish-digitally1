@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#052540] text-white py-10 px-6 md:px-12 mt-24">
+    <footer className="bg-[#052540] text-white py-10 px-6 md:px-12">
       <div className="text-center">
         <Link href="/">
           <Image src="/assets/logo/Author-Logo1.png" alt="Logo" width={120} height={40} className="mx-auto cursor-pointer" />
