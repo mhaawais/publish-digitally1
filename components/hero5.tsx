@@ -31,7 +31,7 @@ const Hero5 = () => {
           </p>
           <button
             onClick={openModal}
-            className="mt-6 inline-block bg-[#052540] hover:bg-[#03080c] text-white font-semibold px-6 py-3 rounded-md shadow-md hover:shadow-lg transition-all"
+            className="mt-6 inline-block bg-[#052540] hover:bg-[#03080c] text-white font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-lg transition-all"
           >
             Get Started
           </button>

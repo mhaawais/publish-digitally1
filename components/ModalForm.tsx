@@ -54,7 +54,7 @@ const ModalForm = () => {
           inputStyle={{ width: "100%", padding: "14px", borderRadius: "8px", backgroundColor: "#bce1dc" }}
         />
         <textarea name="message" rows={4} placeholder="Enter Brief" required className="w-full mb-3 p-3 rounded-md bg-[#bce1dc]" />
-        <button type="submit" className="w-full bg-gradient-to-r from-[#0077b6] to-[#00b4d8] text-white py-3 rounded-md">Submit</button>
+        <button type="submit" className="w-full bg-[#052540] hover:bg-[#03080c] text-white py-3 rounded-md">Submit</button>
         {success && <p className="text-green-600 text-sm mt-3 text-center">Form submitted successfully!</p>}
       </form>
     </Modal>

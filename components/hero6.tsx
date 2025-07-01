@@ -2,18 +2,18 @@ import React from "react";
 import Image from "next/image";
 
 const bookImages = [
-  "/assets/images/book-1.webp",
-  "/assets/images/book-2.webp",
-  "/assets/images/book-3.webp",
-  "/assets/images/book-4.webp",
-  "/assets/images/book-5.webp",
-  "/assets/images/book-6.webp",
-  "/assets/images/book-7.webp",
-  "/assets/images/book-8.webp",
-  "/assets/images/book-9.webp",
-  "/assets/images/book-10.webp",
-  "/assets/images/book-11.webp",
-  "/assets/images/book-12.webp",
+  "/assets/images/8.png",
+  "/assets/images/2.png",
+  "/assets/images/3.png",
+  "/assets/images/4.png",
+  "/assets/images/5.png",
+  "/assets/images/6.png",
+  "/assets/images/7.png",
+  "/assets/images/1.png",
+  "/assets/images/9.png",
+  "/assets/images/10.png",
+  "/assets/images/11.png",
+  "/assets/images/12.png",
 ];
 
 const Hero6 = () => {
