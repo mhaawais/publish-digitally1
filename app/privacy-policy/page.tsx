@@ -12,7 +12,7 @@ const Privacy = () => {
   const { openModal } = useModal();
 
   return (
-    <div>
+    <>
       <Header />
 
       {/* Hero Section */}
@@ -221,7 +221,7 @@ const Privacy = () => {
 
       <ModalForm />
       <Footer />
-    </div>
+    </>
   );
 };
 

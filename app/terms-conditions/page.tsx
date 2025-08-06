@@ -12,7 +12,7 @@ const Terms = () => {
   const { openModal } = useModal();
 
   return (
-    <div>
+    <>
       <Header />
 
       {/* Hero Section */}
@@ -162,7 +162,7 @@ const Terms = () => {
 
       <ModalForm />
       <Footer />
-    </div>
+    </>
   );
 };
 

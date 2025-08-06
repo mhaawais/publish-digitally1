@@ -40,7 +40,7 @@ const Contact = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
 
       {/* Hero Section */}
@@ -210,7 +210,7 @@ const Contact = () => {
       <Hero11 />
       <ModalForm />
       <Footer />
-    </div>
+    </>
   );
 };
 
