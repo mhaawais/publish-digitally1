@@ -23,11 +23,14 @@ const Hero5 = () => {
 
         {/* Right Content */}
         <div className="text-center lg:text-left max-w-2xl">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#052540] leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#052540] leading-tight font-serif">
             Publish Digitally – Helping Your Story Come Alive
           </h2>
           <p className="mt-6 text-base sm:text-lg text-[#333]">
-            Partner with us to transform your manuscript into a powerful, professionally crafted book. From editing to publishing and everything in between, our team guides you every step of the way so your voice can resonate with readers everywhere.
+            Partner with us to transform your manuscript into a powerful,
+            professionally crafted book. From editing to publishing and
+            everything in between, our team guides you every step of the way so
+            your voice can resonate with readers everywhere.
           </p>
           <button
             onClick={openModal}

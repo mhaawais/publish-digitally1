@@ -1,15 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Modal from "react-modal";
 import { useModal } from "@/app/context/ModalContext";
 
 const ModalForm = () => {
-  const { isOpen, closeModal } = useModal();
+  const { isModalOpen, closeModal } = useModal();
   const [phone, setPhone] = useState("");
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    Modal.setAppElement("body"); // For screen readers
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,29 +38,90 @@ const ModalForm = () => {
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={isModalOpen}
       onRequestClose={closeModal}
-      className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto mt-24 outline-none"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-start"
+      className="w-full max-w-lg bg-white rounded-lg p-6 md:p-8 shadow-xl mx-4 sm:mx-auto mt-24 focus:outline-none"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center overflow-y-auto"
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-[#012A4A]">Start Your Writing Journey</h2>
-        <button onClick={closeModal} className="text-red-600 text-xl font-bold">&times;</button>
+      <div className="w-full">
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="text-xl md:text-2xl font-bold text-[#012A4A]">
+            Start Your Writing Journey
+          </h2>
+          <button
+            onClick={closeModal}
+            className="text-red-600 text-2xl font-bold leading-none"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            className="w-full p-3 rounded-md bg-blue-100 focus:outline-none focus:ring-2 focus:ring-[#012A4A]"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+            className="w-full p-3 rounded-md bg-blue-100 focus:outline-none focus:ring-2 focus:ring-[#012A4A]"
+          />
+
+          {/* Phone Number Field */}
+          <PhoneInput
+            country={"us"}
+            value={phone}
+            onChange={setPhone}
+            inputProps={{
+              name: "phone",
+              required: true,
+              autoFocus: false,
+            }}
+            inputStyle={{
+              width: "100%",
+              height: "45px",
+              paddingLeft: "48px",
+              borderRadius: "8px",
+              backgroundColor: "#dbeafe", // Tailwind blue-100
+              border: "1px solid #ccc",
+              fontSize: "16px",
+            }}
+            buttonStyle={{
+              border: "none",
+              backgroundColor: "#dbeafe",
+              borderTopLeftRadius: "8px",
+              borderBottomLeftRadius: "8px",
+            }}
+            containerStyle={{ width: "100%" }}
+          />
+
+          <textarea
+            name="message"
+            rows={4}
+            placeholder="Enter Brief"
+            required
+            className="w-full p-3 rounded-md bg-blue-100 focus:outline-none focus:ring-2 focus:ring-[#012A4A]"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-[#052540] hover:bg-[#03080c] text-white py-3 rounded-md transition-all duration-300"
+          >
+            Submit
+          </button>
+
+          {success && (
+            <p className="text-green-600 text-sm mt-2 text-center">
+              Form submitted successfully!
+            </p>
+          )}
+        </form>
       </div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Your Name" required className="w-full mb-3 p-3 rounded-md bg-[#bce1dc]" />
-        <input type="email" name="email" placeholder="Your Email" required className="w-full mb-3 p-3 rounded-md bg-[#bce1dc]" />
-        <PhoneInput
-          country={"us"}
-          value={phone}
-          onChange={setPhone}
-          inputProps={{ name: "phone", required: true }}
-          inputStyle={{ width: "100%", padding: "14px", borderRadius: "8px", backgroundColor: "#bce1dc" }}
-        />
-        <textarea name="message" rows={4} placeholder="Enter Brief" required className="w-full mb-3 p-3 rounded-md bg-[#bce1dc]" />
-        <button type="submit" className="w-full bg-[#052540] hover:bg-[#03080c] text-white py-3 rounded-md">Submit</button>
-        {success && <p className="text-green-600 text-sm mt-3 text-center">Form submitted successfully!</p>}
-      </form>
     </Modal>
   );
 };

@@ -1,5 +1,6 @@
 'use client';
 
+
 import React from "react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
@@ -13,15 +14,15 @@ import Hero7 from "@/components/hero7";
 import Hero8 from "@/components/hero8";
 import Hero9 from "@/components/hero9";
 import Hero10 from "@/components/hero10";
+import Hero11 from "@/components/hero11";
+import Hero12 from "@/components/hero12";
 import ModalForm from "@/components/ModalForm"; // shared modal
-import { ModalProvider } from "./context/ModalContext";
+
 
 
 export default function Home() {
   return (
-    <ModalProvider>
       <div className="bg-[#c5d1d8]">
-      {/* <div> */}
         <Header />
         <Hero1 />
         <Hero2 />
@@ -33,9 +34,10 @@ export default function Home() {
         <Hero8 />
         <Hero9 />
         <Hero10 />
+        <Hero11 />
+        <Hero12 />
         <Footer />
         <ModalForm /> {/* Only render once, shared across all */}
       </div>
-    </ModalProvider>
   );
 }
