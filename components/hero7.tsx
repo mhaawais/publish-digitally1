@@ -8,7 +8,7 @@ const Hero7 = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#052540] font-serif leading-tight">
           Inside Our Proven Ghostwriting Method
         </h2>
-        <p className="text-lg text-[#052540]">
+        <p className="text-lg text-black">
           We know how to turn your unique ideas into professionally written
           books that capture attention and inspire readers. Our efficient and
           personalized ghostwriters take care of everything from brainstorming

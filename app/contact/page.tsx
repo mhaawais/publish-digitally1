@@ -12,7 +12,6 @@ import Hero3 from "@/components/hero3";
 import Hero10 from "@/components/hero10";
 import Hero11 from "@/components/hero11";
 
-
 const Contact = () => {
   const { openModal } = useModal();
   const [phone, setPhone] = useState("");
@@ -44,7 +43,7 @@ const Contact = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-[url('/assets/images/contact-us.jpeg')] bg-cover bg-center h-[50vh]">
+      <section className="relative bg-[url('/assets/images/contact-us.jpeg')] bg-cover bg-center h-[60vh]">
         <div className="absolute inset-0 bg-black/70"></div>
 
         {/* Centered content container */}
@@ -59,6 +58,7 @@ const Contact = () => {
             </p>
           </div>
         </div>
+
       </section>
 
       {/* Contact Section */}

@@ -61,7 +61,7 @@ const Footer = () => {
         </div>
 
         {/* Middle: Navigation Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 text-sm text-white/90 text-center mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 text-sm text-white/90 text-center mb-12 hover:text-gray-300">
           {[
             ["Home", "/"],
             ["Ghostwriting", "/ghostwriting"],
@@ -111,7 +111,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col items-center gap-1">
               <p className="font-semibold">Find us at</p>
-              <p className="flex items-center gap-2 text-center hover:underline cursor-pointer">
+              <p className="flex items-center gap-2 text-center hover:underline cursor-pointer hover:text-white">
                 <FaMapMarkerAlt />
                 5900 Balcones Drive STE 100, Austin, Texas, 78731
               </p>
@@ -126,7 +126,7 @@ const Footer = () => {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform"
+              className="hover:rotate-12 transition-transform hover:text-blue-400"
             >
               <FaFacebookF />
             </a>
@@ -135,7 +135,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform"
+              className="hover:rotate-12 transition-transform hover:text-pink-600"
             >
               <FaInstagram />
             </a>
@@ -144,7 +144,7 @@ const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform"
+              className="hover:rotate-12 transition-transform hover:text-blue-500"
             >
               <FaTwitter />
             </a>
@@ -153,10 +153,26 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform"
+              className="hover:rotate-12 transition-transform hover:text-blue-600"
             >
               <FaLinkedinIn />
             </a>
+          </div>
+
+          <div className="mt-5 flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
+            <Image
+              src="/assets/images/footer-1.webp"
+              alt="security-options"
+              height={200}
+              width={200}
+            />
+
+            <Image
+              src="/assets/images/footer-4.jpg"
+              alt="2nd-security-options"
+              height={200}
+              width={200}
+            />
           </div>
         </div>
 

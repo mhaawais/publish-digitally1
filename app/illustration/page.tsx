@@ -5,7 +5,6 @@ import Header from "@/components/header";
 import React, { useState } from "react";
 import { useModal } from "@/app/context/ModalContext";
 import ModalForm from "@/components/ModalForm";
-import Hero2 from "@/components/hero2";
 import Hero4 from "@/components/hero4";
 import Hero6 from "@/components/hero6";
 import Image from "next/image";
@@ -116,8 +115,6 @@ const Illustration = () => {
           />
         </div>
       </section>
-
-      <Hero2 />
 
       <section className="w-full px-4 sm:px-6 lg:px-8 py-16 bg-gradient-to-b from-[#f4f8fb] to-white text-[#012A4A]">
         <div className="text-center mb-12">

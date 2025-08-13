@@ -130,13 +130,13 @@ const Hero11 = () => {
         <div className="flex justify-center gap-6 mb-10">
           <button
             onClick={prev}
-            className="p-3 rounded-full bg-[#052540] hover:bg-[#0f6e91] text-white transition shadow-lg"
+            className="p-3 rounded-full bg-blue-400 hover:bg-blue-500 text-white transition shadow-lg"
           >
             <MdNavigateBefore size={28} />
           </button>
           <button
             onClick={next}
-            className="p-3 rounded-full bg-[#052540] hover:bg-[#0f6e91] text-white transition shadow-lg"
+            className="p-3 rounded-full bg-blue-400 hover:bg-blue-500 text-white transition shadow-lg"
           >
             <MdNavigateNext size={28} />
           </button>
@@ -180,7 +180,7 @@ const Hero11 = () => {
               </div> */}
 
               {/* Review Text */}
-              <p className="text-gray-700 text-sm leading-relaxed">
+              <p className="text-gray-800 text-sm leading-relaxed font-medium">
                 {review.review}
               </p>
             </div>

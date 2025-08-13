@@ -5,7 +5,6 @@ import { useModal } from "@/app/context/ModalContext";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ModalForm from "@/components/ModalForm";
-import Hero2 from "@/components/hero2";
 import Hero4 from "@/components/hero4";
 import Hero5 from "@/components/hero5";
 import Image from "next/image";
@@ -92,7 +91,6 @@ const Bookedit = () => {
       </section>
 
       {/* Additional Sections */}
-      <Hero2 />
       <Development />
       <Hero4 />
       <Hero5 />

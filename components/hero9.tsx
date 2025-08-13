@@ -36,7 +36,7 @@ const Hero9 = () => {
           Craft Your Masterpiece with{" "}
           <span className="text-[#0f6e91]">America’s Top Writing Talent</span>
         </h2>
-        <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
           At <strong>Publish Digitally</strong>, we go beyond words — we build
           legacies. Our unmatched expertise, personalized service, and
           commitment to excellence make us one of the top book writing teams in
@@ -63,7 +63,7 @@ const Hero9 = () => {
             </h3>
 
             {/* Description */}
-            <p className="text-sm text-gray-600 text-center">
+            <p className="text-sm text-gray-800 text-center">
               {service.description}
             </p>
           </div>

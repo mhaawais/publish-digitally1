@@ -232,7 +232,7 @@ const Hero3 = () => {
                     {review.name}
                   </span>
                   {/* <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line"> */}
-                  <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line tracking-normal font-sans font-medium">
+                  <p className="text-gray-800 text-base leading-relaxed whitespace-pre-line tracking-normal font-sans font-medium">
                     {review.review}
                   </p>
                 </div>

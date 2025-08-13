@@ -24,7 +24,7 @@ const Hero6 = () => {
     >
       <div className="absolute inset-0 bg-[#f2fbff]/30 z-0"></div>
 
-      {/* Top Torn Image   bg-white/30   bg-[#f2fbff]/70   text-[#052540] */}
+      {/* Top Torn Image   bg-white/30   bg-[#f2fbff]/70   text-[#052540]   text-[#0a1a2f]    */}
       <Image
         src="/assets/images/top.webp"
         alt="Top Torn Edge"
@@ -35,10 +35,10 @@ const Hero6 = () => {
 
       <div className="relative py-10 px-4 lg:px-20">
         <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0a1a2f] drop-shadow-md font-serif leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-[#0a1a2f] text-white drop-shadow-md font-serif leading-tight">
             Our Publications
           </h2>
-          <p className="mt-4 text-[#0a1a2f] max-w-3xl mx-auto text-base sm:text-lg drop-shadow-sm font-semibold">
+          <p className="mt-4 bg-white  max-w-3xl mx-auto text-base sm:text-lg drop-shadow-sm font-semibold">
             Pick any of the books published by us, and you will be mesmerized by
             it. From fiction to non-fiction, our top book publishing agency
             publishes captivating and inspiring books of modern high-quality.
