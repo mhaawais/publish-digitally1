@@ -183,17 +183,6 @@ const Authorwebsite = () => {
 
       <section className="relative bg-[#c2dee9] text-[#052540] overflow-hidden">
         {/* Torn Top */}
-        {/* <div className="w-full">
-          <Image
-            src="/assets/images/top.webp"
-            alt="Torn Top"
-            width={1920}
-            height={80}
-            layout="responsive"
-            objectFit="cover"
-            priority
-          />
-        </div> */}
 
         {/* Main Content */}
         <div className="relative z-10 px-4 sm:px-8 lg:px-24 py-7 lg:py-10 flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -267,17 +256,7 @@ const Authorwebsite = () => {
         </div>
 
         {/* Torn Bottom */}
-        {/* <div className="w-full">
-          <Image
-            src="/assets/images/bottom.webp"
-            alt="Torn Bottom"
-            width={1920}
-            height={80}
-            layout="responsive"
-            objectFit="cover"
-            priority
-          />
-        </div> */}
+        
       </section>
 
       <Hero6 />

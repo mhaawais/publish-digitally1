@@ -119,14 +119,14 @@ const Footer = () => {
           </div>
 
           {/* Social Icons */}
-          <div className="flex items-center justify-center gap-4 text-lg text-white mt-4">
+          <div className="flex items-center justify-center gap-4 text-xl text-white mt-4">
             <p className="font-medium text-sm">Follow us at:</p>
 
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform hover:text-blue-400"
+              className="hover:rotate-45 transition-transform text-blue-400 hover:text-blue-500"
             >
               <FaFacebookF />
             </a>
@@ -135,7 +135,7 @@ const Footer = () => {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform hover:text-pink-600"
+              className="hover:rotate-45 transition-transform text-pink-600 hover:text-pink-700"
             >
               <FaInstagram />
             </a>
@@ -144,7 +144,7 @@ const Footer = () => {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform hover:text-blue-500"
+              className="hover:rotate-45 transition-transform text-blue-500 hover:text-blue-600"
             >
               <FaTwitter />
             </a>
@@ -153,7 +153,7 @@ const Footer = () => {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:rotate-12 transition-transform hover:text-blue-600"
+              className="hover:rotate-45 transition-transform text-blue-600 hover:text-blue-700"
             >
               <FaLinkedinIn />
             </a>
