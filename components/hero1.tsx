@@ -88,7 +88,7 @@ const Hero1 = () => {
       </div>
 
       {/* Content */}
-      <div className="relative mt-5 z-20 mx-auto max-w-7xl px-6 md:px-10">
+      <div className="relative mt-5 mb-10 z-20 mx-auto max-w-7xl px-6 md:px-10 ">
         <div className="grid items-center gap-8 md:gap-12 md:grid-cols-12">
           {/* Left: copy */}
           <div className="md:col-span-8 lg:col-span-7">
