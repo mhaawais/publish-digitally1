@@ -79,7 +79,7 @@ const Header = () => {
   }, [menuOpen]);
 
   return (
-    <header className="bg-[#052540] text-white w-full fixed top-0 left-0 z-50 shadow-md">
+    <header id="site-header" className="bg-[#052540] text-white w-full fixed top-0 left-0 z-50 shadow-md">
       {/* <header className="bg-[#052540] text-white w-full fixed lg:static top-0 left-0 z-50 shadow-md"> */}
 
       <div className="flex items-center justify-between px-4 py-2 lg:px-12 lg:py-1">
@@ -124,8 +124,8 @@ const Header = () => {
                 role="menu"
                 className={[
                   "absolute top-full mt-3 z-50 w-80 origin-top transform-gpu",
-                  "rounded-xl border border-white/60 bg-white/90 backdrop-blur-md",
-                  "shadow-2xl ring-1 ring-black/5 p-4 grid grid-cols-2 gap-2 text-sm text-[#052540]",
+                  "rounded-xl border border-white/60 bg-[#c2dee9] backdrop-blur-md",
+                  "shadow-2xl ring-1 ring-black/5 p-4 grid grid-cols-2 gap-2 text-sm font-medium text-[#052540]",
                   "transition-[opacity,transform] duration-500 ease-out",
                   servicesOpen
                     ? "opacity-100 translate-y-0 scale-y-100 pointer-events-auto"
@@ -255,6 +255,7 @@ const Header = () => {
               </svg>
             </span>
           </button>
+
         </div>
 
         <button

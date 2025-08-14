@@ -107,7 +107,7 @@ const Hero5 = () => {
       transition-opacity duration-200
     "
             >
-              Get A Quote
+              Get Started
             </span>
           </button>
 

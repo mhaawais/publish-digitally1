@@ -20,82 +20,68 @@ const Hero10 = () => {
           stands out and captures readers’ attention. Ready to bring your vision
           to life? Click the button below and let’s get started!
         </p>
-        {/* <button
-          onClick={openModal}
-          className="mt-8 px-8 py-3 bg-[#c5d1d8] hover:bg-[#cdcdd3] text-black font-semibold rounded-md shadow-md hover:shadow-lg transition"
-        >
-          Get Started
-        </button> */}
+       
 
          <button
-            aria-label="Open get started modal"
+            type="button"
             onClick={openModal}
             className="
-    mt-8 group relative inline-flex items-center justify-center
-    overflow-hidden rounded-2xl px-10 py-3.5
-    font-semibold tracking-wide text-white
-    bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd]
+    mt-10 group relative inline-flex items-center justify-center
+    rounded-2xl px-6 py-3.5 font-semibold tracking-wide
+    text-white overflow-hidden
+    bg-gradient-to-br from-[#0b6b6b] via-[#0aa4a6] to-[#12c2c9]
     shadow-[0_10px_25px_-10px_rgba(0,0,0,.6)]
     transition-[transform,box-shadow] duration-300 ease-out
-    hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-12px_rgba(10,110,189,.55)]
-    active:translate-y-0
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#031829]
-    motion-reduce:transition-none motion-reduce:hover:transform-none
+    hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-12px_rgba(18,194,201,.45)]
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300
+    focus-visible:ring-offset-2 focus-visible:ring-offset-[#031829]
   "
+            aria-label="Get Started"
           >
-            {/* ambient glow (subtle, always on) */}
+            {/* ambient depth */}
             <span
               className="
       pointer-events-none absolute inset-[-2px] rounded-2xl
       bg-[radial-gradient(120px_80px_at_20%_20%,rgba(255,255,255,.10),transparent),
-          radial-gradient(140px_90px_at_80%_30%,rgba(42,168,255,.16),transparent)]
+          radial-gradient(140px_90px_at_80%_30%,rgba(255,255,255,.18),transparent)]
     "
             />
 
-            {/* animated border glow on hover */}
+            {/* slow gradient sweep on hover */}
             <span
               className="
-      pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10
-      group-hover:ring-cyan-200/40 transition-[box-shadow,opacity] duration-300
-      shadow-[inset_0_0_0_0_rgba(0,0,0,0)] group-hover:shadow-[inset_0_0_18px_rgba(42,168,255,0.25)]
+      absolute inset-0 -translate-x-full group-hover:translate-x-0
+      transition-transform duration-[1200ms] ease-out
+      bg-gradient-to-r from-white/10 via-white/20 to-white/10 opacity-90
     "
             />
 
-            {/* slow sliding gradient overlay (left → right) */}
-            <span
-              className="
-      absolute inset-0 -translate-x-full group-hover:translate-x-4
-      transition-transform duration-1000 ease-out
-      bg-gradient-to-r from-[#0a6ebd] via-[#2aa8ff] to-[#00d4ff]
-      opacity-90
-    "
-            />
-
-            {/* glossy shine sweep */}
+            {/* glossy shine pass */}
             <span
               className="
       pointer-events-none absolute -left-1/3 top-0 h-full w-1/3
       -skew-x-12 bg-white/18
       translate-x-[-120%] group-hover:translate-x-[320%]
-      transition-transform duration-[2000ms] ease-out
-      blur-[2px]
+      transition-transform duration-[1400ms] ease-out blur-[2px]
     "
             />
 
-            {/* default text */}
-            <span className="relative z-10 transition-all duration-200 group-hover:opacity-0">
-              Get Started
-            </span>
-
-            {/* hover text */}
-            <span
-              className="
-      absolute inset-0 z-10 flex items-center justify-center
-      opacity-0 group-hover:opacity-100
-      transition-opacity duration-200
-    "
-            >
-              Get A Quote
+            {/* content with arrow visible initially */}
+            <span className="relative z-10 flex items-center gap-2">
+              <span>Get Started</span>
+              <svg
+                className="h-5 w-5 translate-x-0 transition-transform duration-300 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="M13 5l7 7-7 7" />
+              </svg>
             </span>
           </button>
 
