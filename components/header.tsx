@@ -79,7 +79,7 @@ const Header = () => {
   }, [menuOpen]);
 
   return (
-    <header id="site-header" className="bg-[#052540] text-white w-full fixed top-0 left-0 z-50 shadow-md">
+    <header id="site-header" className="bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] text-white w-full fixed top-0 left-0 z-50 shadow-md">
       {/* <header className="bg-[#052540] text-white w-full fixed lg:static top-0 left-0 z-50 shadow-md"> */}
 
       <div className="flex items-center justify-between px-4 py-2 lg:px-12 lg:py-1">
@@ -268,7 +268,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 w-4/5 max-w-md h-full bg-[#052540] text-white p-6 overflow-y-auto z-50 transform transition-transform duration-300 ease-in-out mobile-menu ${
+        className={`fixed top-0 right-0 w-4/5 max-w-md h-full bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] text-white p-6 overflow-y-auto z-50 transform transition-transform duration-300 ease-in-out mobile-menu ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

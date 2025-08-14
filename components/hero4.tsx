@@ -7,7 +7,7 @@ const Hero4 = () => {
   const { openModal } = useModal();
 
   return (
-    <section className="relative bg-[#052540] overflow-hidden py-20">
+    <section className="relative bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] overflow-hidden py-20">
       <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
         <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-snug drop-shadow-md font-serif ">
           Don’t Keep Your Story Waiting - Let’s Get Writing!

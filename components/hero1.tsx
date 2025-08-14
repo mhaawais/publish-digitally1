@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { useModal } from "@/app/context/ModalContext";
+import Link from "next/link";
 
 const Hero1 = () => {
   const { openModal } = useModal();
@@ -12,7 +13,9 @@ const Hero1 = () => {
 
   // Measure real header height so hero never hides behind it
   useEffect(() => {
-    const el = document.getElementById("site-header") || document.querySelector("header");
+    const el =
+      document.getElementById("site-header") ||
+      document.querySelector("header");
     if (!el) return;
     const update = () => setHeaderH(el.getBoundingClientRect().height || 80);
     update();
@@ -45,9 +48,9 @@ const Hero1 = () => {
     const el = tiltRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width;   // 0..1
-    const py = (e.clientY - r.top) / r.height;  // 0..1
-    const ry = (px - 0.5) * 10;                 // -5..5deg
+    const px = (e.clientX - r.left) / r.width; // 0..1
+    const py = (e.clientY - r.top) / r.height; // 0..1
+    const ry = (px - 0.5) * 10; // -5..5deg
     const rx = -(py - 0.5) * 10;
     el.style.setProperty("--rx", `${rx}deg`);
     el.style.setProperty("--ry", `${ry}deg`);
@@ -104,21 +107,20 @@ const Hero1 = () => {
                   drop-shadow-[0_2px_0_rgba(0,0,0,.15)]
                 "
               >
-                From Idea to <span className="shine hover:shine-fast">Bestseller-Ready</span>
+                From Idea to{" "}
+                <span className="shine hover:shine-fast">Bestseller-Ready</span>
               </h1>
 
               <p className="mt-4 text-base sm:text-lg text-white/85 max-w-2xl">
-                Ghostwriting, editing, design, audiobook, web, and publishing—built into one smooth,
-                milestone-driven workflow.
+                Ghostwriting, editing, design, audiobook, web, and
+                publishing—built into one smooth, milestone-driven workflow.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3 items-center">
-                
-
-                 <button
-                aria-label="Open get started modal"
-                onClick={openModal}
-                className="
+                <button
+                  aria-label="Open get started modal"
+                  onClick={openModal}
+                  className="
     group relative inline-flex items-center justify-center
     overflow-hidden rounded-2xl px-10 py-3.5
     font-semibold tracking-wide text-white
@@ -130,81 +132,91 @@ const Hero1 = () => {
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#031829]
     motion-reduce:transition-none motion-reduce:hover:transform-none
   "
-              >
-                {/* ambient glow (subtle, always on) */}
-                <span
-                  className="
+                >
+                  {/* ambient glow (subtle, always on) */}
+                  <span
+                    className="
       pointer-events-none absolute inset-[-2px] rounded-2xl
       bg-[radial-gradient(120px_80px_at_20%_20%,rgba(255,255,255,.10),transparent),
           radial-gradient(140px_90px_at_80%_30%,rgba(42,168,255,.16),transparent)]
     "
-                />
+                  />
 
-                {/* animated border glow on hover */}
-                <span
-                  className="
+                  {/* animated border glow on hover */}
+                  <span
+                    className="
       pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10
       group-hover:ring-cyan-200/40 transition-[box-shadow,opacity] duration-300
       shadow-[inset_0_0_0_0_rgba(0,0,0,0)] group-hover:shadow-[inset_0_0_18px_rgba(42,168,255,0.25)]
     "
-                />
+                  />
 
-                {/* slow sliding gradient overlay (left → right) */}
-                <span
-                  className="
+                  {/* slow sliding gradient overlay (left → right) */}
+                  <span
+                    className="
       absolute inset-0 -translate-x-full group-hover:translate-x-4
       transition-transform duration-1000 ease-out
       bg-gradient-to-r from-[#0a6ebd] via-[#2aa8ff] to-[#00d4ff]
       opacity-90
     "
-                />
+                  />
 
-                {/* glossy shine sweep */}
-                <span
-                  className="
+                  {/* glossy shine sweep */}
+                  <span
+                    className="
       pointer-events-none absolute -left-1/3 top-0 h-full w-1/3
       -skew-x-12 bg-white/18
       translate-x-[-120%] group-hover:translate-x-[320%]
       transition-transform duration-[2000ms] ease-out
       blur-[2px]
     "
-                />
+                  />
 
-                {/* default text */}
-                <span className="relative z-10 transition-all duration-200 group-hover:opacity-0">
-                  Get Started
-                </span>
+                  {/* default text */}
+                  <span className="relative z-10 transition-all duration-200 group-hover:opacity-0">
+                    Get Started
+                  </span>
 
-                {/* hover text */}
-                <span
-                  className="
+                  {/* hover text */}
+                  <span
+                    className="
       absolute inset-0 z-10 flex items-center justify-center
       opacity-0 group-hover:opacity-100
       transition-opacity duration-200
     "
-                >
-                  Get A Quote
-                </span>
-              </button>
-
-
+                  >
+                    Get A Quote
+                  </span>
+                </button>
               </div>
 
               {/* Feature chips with lift + soft highlight */}
-              <div className="mt-5 flex flex-wrap gap-2 text-[12px] text-white/75">
+
+              <div className="mt-5 flex flex-wrap gap-2 text-[12px]">
                 {[
-                  "Ghostwriting",
-                  "Editing",
-                  "Cover Design",
-                  "Audiobook",
-                  "Author Website",
-                  "Book Trailer",
-                  "Illustration",
-                  "Publishing",
-                ].map((t) => (
-                  <span key={t} className="chip hover:chip-pop">
-                    {t}
-                  </span>
+                  { name: "Ghostwriting", href: "/ghostwriting" },
+                  { name: "Editing", href: "/book-editing" },
+                  { name: "Cover Design", href: "/cover-design" },
+                  { name: "Audiobook", href: "/audio-book" },
+                  { name: "Author Website", href: "/author-website" },
+                  { name: "Book Promotion", href: "/book-promotions" },
+                  { name: "Illustration", href: "/illustration" },
+                  { name: "Publishing", href: "/book-publishing" },
+                  { name: "Videos", href: "/book-video" },
+                ].map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="
+        px-3 py-1 rounded-full border border-white/30 text-white/75 
+        transition-all duration-300 ease-out hover:bg-blue-700
+        hover:text-white hover:border-white hover:bg-white/10
+        hover:shadow-lg hover:shadow-blue-500/30
+        active:scale-95
+      "
+                  >
+                    {item.name}
+                  </Link>
                 ))}
               </div>
             </div>
@@ -219,15 +231,19 @@ const Hero1 = () => {
               className="relative h-[360px] lg:h-[420px] perspective"
               style={
                 {
-                  transform: "perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))",
+                  transform:
+                    "perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))",
                   transformStyle: "preserve-3d",
                 } as React.CSSProperties
               }
             >
               <div className="absolute inset-0 rounded-3xl bg-white/85 p-5 ring-1 ring-black/5 shadow-2xl backdrop-blur-sm floaty card-tilt">
-                <div className="text-[#012A4A] font-bold">Your Book, Beautifully Built</div>
+                <div className="text-[#012A4A] font-bold">
+                  Your Book, Beautifully Built
+                </div>
                 <div className="text-[#012A4A]/70 text-sm mt-1">
-                  Voice-matched writing, pro editing, premium design, and precise launch ops.
+                  Voice-matched writing, pro editing, premium design, and
+                  precise launch ops.
                 </div>
                 <div className="mt-5 grid grid-cols-2 gap-3 text-xs text-[#012A4A]/80">
                   <div className="mini">Outline • Drafts</div>
@@ -241,7 +257,6 @@ const Hero1 = () => {
         </div>
       </div>
 
-
       {/* Scroll cue */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 z-20">
         <div className="h-8 w-5 rounded-full ring-1 ring-white/35 bg-white/10 backdrop-blur-sm flex items-start justify-center p-1">
@@ -252,46 +267,65 @@ const Hero1 = () => {
 
       {/* Local styles for effects/animations */}
       <style jsx>{`
-        .animate-in { animation: fadeUp 650ms ease-out both; }
+        .animate-in {
+          animation: fadeUp 650ms ease-out both;
+        }
 
         .glass-card {
-          transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
-          border: 1px solid rgba(255,255,255,0.14);
+          transition: transform 300ms ease, box-shadow 300ms ease,
+            border-color 300ms ease;
+          border: 1px solid rgba(255, 255, 255, 0.14);
         }
         .glass-pop:hover {
           transform: translateY(-4px);
-          box-shadow: 0 28px 60px -28px rgba(0,0,0,0.5);
+          box-shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.5);
           border-color: rgba(186, 230, 253, 0.4);
         }
 
         .gradient-shift {
-          background-image: linear-gradient(100deg,#eaf6ff 0%,#77c5ff 60%,#eaf6ff 100%);
+          background-image: linear-gradient(
+            100deg,
+            #eaf6ff 0%,
+            #77c5ff 60%,
+            #eaf6ff 100%
+          );
           background-size: 200% 100%;
           transition: background-position 600ms ease;
         }
-        .gradient-shift:hover { background-position: 100% 0; }
+        .gradient-shift:hover {
+          background-position: 100% 0;
+        }
 
         .shine {
-          background-image: linear-gradient(100deg,#eaf6ff 0%,#77c5ff 60%,#eaf6ff 100%);
+          background-image: linear-gradient(
+            100deg,
+            #eaf6ff 0%,
+            #77c5ff 60%,
+            #eaf6ff 100%
+          );
           background-size: 200% 100%;
-          -webkit-background-clip: text; background-clip: text;
+          -webkit-background-clip: text;
+          background-clip: text;
           animation: shine 5s ease-in-out infinite;
         }
-        .shine-fast { animation-duration: 3s; }
+        .shine-fast {
+          animation-duration: 3s;
+        }
 
         .chip {
           padding: 6px 10px;
           border-radius: 9999px;
-          background: rgba(255,255,255,0.10);
-          border: 1px solid rgba(255,255,255,0.16);
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.16);
           backdrop-filter: blur(4px);
-          transition: transform 250ms ease, box-shadow 250ms ease, background 250ms ease, border-color 250ms ease;
+          transition: transform 250ms ease, box-shadow 250ms ease,
+            background 250ms ease, border-color 250ms ease;
         }
         .chip-pop:hover {
           transform: translateY(-3px);
-          background: rgba(255,255,255,0.14);
+          background: rgba(255, 255, 255, 0.14);
           border-color: rgba(186, 230, 253, 0.5);
-          box-shadow: 0 10px 20px -10px rgba(0,0,0,0.35);
+          box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.35);
         }
 
         /* CTA magnetic glow (uses --x/--y from mousemove) */
@@ -300,16 +334,28 @@ const Hero1 = () => {
           overflow: hidden;
         }
         .cta-glow {
-          background:
-            radial-gradient(180px 180px at var(--x,50%) var(--y,50%), rgba(255,255,255,0.12), transparent 60%),
-            radial-gradient(260px 220px at var(--x,50%) var(--y,50%), rgba(42,168,255,0.18), transparent 70%);
+          background: radial-gradient(
+              180px 180px at var(--x, 50%) var(--y, 50%),
+              rgba(255, 255, 255, 0.12),
+              transparent 60%
+            ),
+            radial-gradient(
+              260px 220px at var(--x, 50%) var(--y, 50%),
+              rgba(42, 168, 255, 0.18),
+              transparent 70%
+            );
           transition: opacity 250ms ease;
           opacity: 0.9;
         }
 
         /* Right card subtle float */
-        .floaty { animation: floatUp 10s ease-in-out infinite; }
-        .card-tilt { will-change: transform; transition: transform 150ms ease; }
+        .floaty {
+          animation: floatUp 10s ease-in-out infinite;
+        }
+        .card-tilt {
+          will-change: transform;
+          transition: transform 150ms ease;
+        }
 
         /* Animated vignette overlay */
         .animate-vignette {
@@ -317,23 +363,82 @@ const Hero1 = () => {
         }
 
         /* Scroll cue */
-        @keyframes scrollPulse { 0%{transform:translateY(0);opacity:.9} 50%{transform:translateY(6px);opacity:.5} 100%{transform:translateY(0);opacity:.9} }
-        .animate-scroll { animation: scrollPulse 1.6s ease-in-out infinite; }
+        @keyframes scrollPulse {
+          0% {
+            transform: translateY(0);
+            opacity: 0.9;
+          }
+          50% {
+            transform: translateY(6px);
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 0.9;
+          }
+        }
+        .animate-scroll {
+          animation: scrollPulse 1.6s ease-in-out infinite;
+        }
 
         /* Generic keyframes */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes floatUp { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
-        @keyframes shine { 0%{background-position-x:0%} 50%{background-position-x:100%} 100%{background-position-x:0%} }
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes floatUp {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        @keyframes shine {
+          0% {
+            background-position-x: 0%;
+          }
+          50% {
+            background-position-x: 100%;
+          }
+          100% {
+            background-position-x: 0%;
+          }
+        }
         @keyframes vignettePulse {
-          0% { opacity: .6; }
-          50% { opacity: .9; }
-          100% { opacity: .6; }
+          0% {
+            opacity: 0.6;
+          }
+          50% {
+            opacity: 0.9;
+          }
+          100% {
+            opacity: 0.6;
+          }
         }
 
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
-          .animate-in, .floaty, .shine, .shine-fast, .animate-scroll, .animate-vignette { animation: none !important; }
-          .cta-glow { transition: none; }
+          .animate-in,
+          .floaty,
+          .shine,
+          .shine-fast,
+          .animate-scroll,
+          .animate-vignette {
+            animation: none !important;
+          }
+          .cta-glow {
+            transition: none;
+          }
         }
       `}</style>
     </section>
@@ -341,17 +446,6 @@ const Hero1 = () => {
 };
 
 export default Hero1;
-
-
-
-
-
-
-
-
-
-
-
 
 //  "use client";
 
