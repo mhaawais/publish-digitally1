@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useRef } from "react";
 
 const Hero9 = () => {
   const services = [
@@ -28,10 +29,37 @@ const Hero9 = () => {
     },
   ];
 
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add the animation class when the element enters the viewport
+            entry.target.classList.add("animate-fade-in-up"); // Adjust with any animation class you want
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      },
+      { threshold: 0.2 } // Trigger when 40% of the element is visible in the viewport
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="bg-gradient-to-b from-[#eaf6fb] to-white py-20 px-4 sm:px-8 lg:px-20 text-[#052540]">
       {/* Header */}
-      <div className="text-center max-w-5xl mx-auto mb-16">
+      <div ref={elementRef} className="text-center max-w-5xl mx-auto mb-16">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight font-serif">
           Craft Your Masterpiece with{" "}
           <span className="text-[#0f6e91]">America’s Top Writing Talent</span>

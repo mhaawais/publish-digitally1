@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const bookImages = [
   "/assets/images/8.png",
@@ -17,6 +18,35 @@ const bookImages = [
 ];
 
 const Hero6 = () => {
+
+  const elementRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add the animation class when the element enters the viewport
+            // entry.target.classList.add("animate-fade-in-up"); // Adjust with any animation class you want
+            entry.target.classList.add("animate-slide-up");
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when 40% of the element is visible in the viewport
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section
       className="relative w-full overflow-hidden bg-cover bg-center"
@@ -44,6 +74,11 @@ const Hero6 = () => {
             publishes captivating and inspiring books of modern high-quality.
           </p>
 
+
+<div
+        ref={elementRef}
+        className="opacity-0" // Start as invisible
+      >
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {bookImages.map((src, index) => (
               <div
@@ -60,6 +95,9 @@ const Hero6 = () => {
               </div>
             ))}
           </div>
+          </div>
+
+
         </div>
       </div>
 

@@ -1,6 +1,5 @@
 'use client';
 
-
 import React from "react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
@@ -17,8 +16,6 @@ import Hero10 from "@/components/hero10";
 import Hero11 from "@/components/hero11";
 import Hero12 from "@/components/hero12";
 import ModalForm from "@/components/ModalForm"; // shared modal
-
-
 
 export default function Home() {
   return (

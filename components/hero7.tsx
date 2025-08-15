@@ -1,7 +1,49 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useModal } from "@/app/context/ModalContext";
 
 const Hero7 = () => {
+  const { openModal } = useModal();
+
+  // Refs for image, text, and button elements
+  const imageRef = useRef<HTMLDivElement | null>(null); // For the image animation
+  const textRef = useRef<HTMLDivElement | null>(null); // For the text animation
+  const buttonRef = useRef<HTMLButtonElement | null>(null); // For the button animation
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add specific animation class when element comes into view
+            if (entry.target === imageRef.current) {
+              imageRef.current.classList.add("animate-slide-in-left");
+            }
+            if (entry.target === textRef.current) {
+              textRef.current.classList.add("animate-slide-in-right");
+            }
+            if (entry.target === buttonRef.current) {
+              buttonRef.current.classList.add("animate-slide-up");
+            }
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      },
+      { threshold: 0.2 }  // Trigger when 30% of the element is visible in the viewport
+    );
+
+    // Observe elements
+    if (imageRef.current) observer.observe(imageRef.current);
+    if (textRef.current) observer.observe(textRef.current);
+    if (buttonRef.current) observer.observe(buttonRef.current);
+
+    return () => {
+      if (imageRef.current) observer.unobserve(imageRef.current);
+      if (textRef.current) observer.unobserve(textRef.current);
+      if (buttonRef.current) observer.unobserve(buttonRef.current);
+    };
+  }, []);
+
   return (
     <section className="relative bg-[#eaf6fb] px-4 md:px-8 lg:px-20 overflow-hidden text-[#052540] pb-20">
       <div className="text-center max-w-3xl mx-auto pt-12 mb-12">
@@ -20,7 +62,7 @@ const Hero7 = () => {
       <div className="relative z-10 w-full pb-0">
         {/* lg layout */}
         <div className="hidden lg:grid grid-cols-3 gap-12 items-center">
-          <div className="flex flex-col gap-10">
+          <div ref={imageRef} className="flex flex-col gap-10 opacity-0">
             <Card
               step="01"
               title="Crafting the Blueprint"
@@ -43,7 +85,7 @@ const Hero7 = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-10">
+          <div ref={textRef} className="flex flex-col gap-10 opacity-0">
             <Card
               step="03"
               title="Detailed Proofreading"
@@ -127,3 +169,6 @@ const Card = ({
 );
 
 export default Hero7;
+
+
+

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import Image from "next/image";
 import { FiPlus, FiMinus } from "react-icons/fi";
+import { useRef, useEffect, useState } from "react";
+
 
 const faqs = [
   {
@@ -49,8 +50,41 @@ const Hero12 = () => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
 
+
+    const elementRef = useRef<HTMLDivElement | null>(null);
+  
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Add the animation class when the element enters the viewport
+              // entry.target.classList.add("animate-fade-in-up"); // Adjust with any animation class you want
+              entry.target.classList.add("animate-slide-up");
+              observer.unobserve(entry.target); // Stop observing after animation is triggered
+            }
+          });
+        },
+        { threshold: 0.2 } // Trigger when 40% of the element is visible in the viewport
+      );
+  
+      if (elementRef.current) {
+        observer.observe(elementRef.current);
+      }
+  
+      return () => {
+        if (elementRef.current) {
+          observer.unobserve(elementRef.current);
+        }
+      };
+    }, []);
+
   return (
     <section className="relative bg-gradient-to-b from-[#eaf6fb] to-white text-[#052540] overflow-hidden pt-0 pb-20">
+      <div
+        ref={elementRef}
+        className="opacity-0" // Start as invisible
+      >
       <div className="relative z-10 max-w-7xl mx-auto mt-12 grid grid-cols-1 lg:grid-cols-3 gap-10 items-start px-4 sm:px-6 lg:px-8">
         {/* Left Image */}
         <div className="hidden lg:flex justify-center relative -mt-12">
@@ -113,6 +147,7 @@ const Hero12 = () => {
             className="rounded-xl shadow-2xl"
           />
         </div>
+      </div>
       </div>
     </section>
   );

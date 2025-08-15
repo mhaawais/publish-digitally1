@@ -2,12 +2,44 @@
 
 import React from "react";
 import { useModal } from "@/app/context/ModalContext";
+import { useEffect, useRef } from "react";
 
 const Hero10 = () => {
   const { openModal } = useModal();
 
+   const elementRef = useRef<HTMLDivElement | null>(null);
+  
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Add the animation class when the element enters the viewport
+              entry.target.classList.add("animate-slide-up"); // Adjust with any animation class you want
+              observer.unobserve(entry.target); // Stop observing after animation is triggered
+            }
+          });
+        },
+        { threshold: 0.2 } // Trigger when 40% of the element is visible in the viewport
+      );
+  
+      if (elementRef.current) {
+        observer.observe(elementRef.current);
+      }
+  
+      return () => {
+        if (elementRef.current) {
+          observer.unobserve(elementRef.current);
+        }
+      };
+    }, []);
+
   return (
     <section className="relative bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] overflow-hidden py-20">
+      <div
+        ref={elementRef}
+        className="opacity-0" // Start as invisible
+      >
       <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
         <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-snug drop-shadow-md font-serif">
           Let’s write Something Incredible Together!
@@ -86,6 +118,7 @@ const Hero10 = () => {
           </button>
 
 
+      </div>
       </div>
     </section>
   );

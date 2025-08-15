@@ -1,15 +1,58 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useModal } from "@/app/context/ModalContext";
 
 const Hero5 = () => {
   const { openModal } = useModal();
 
+  const imageRef = useRef<HTMLDivElement | null>(null); // For the image animation
+  const textRef = useRef<HTMLDivElement | null>(null); // For the text animation
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add specific animation class when element comes into view
+            if (entry.target === imageRef.current) {
+              imageRef.current.classList.add("animate-slide-in-left");
+            }
+            if (entry.target === textRef.current) {
+              textRef.current.classList.add("animate-slide-in-right");
+            }
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of the element is visible in the viewport
+    );
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+      if (textRef.current) {
+        observer.unobserve(textRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="bg-[#eaf6fb] py-16 px-6 lg:px-16">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-10">
         {/* Left Image */}
-        <div className="relative w-full max-w-md lg:max-w-[450px] flex-shrink-0">
+        <div
+          ref={imageRef}
+          className="relative w-full max-w-md lg:max-w-[450px] flex-shrink-0 opacity-0" // Start invisible
+        >
           <div className="rounded-[50%] bg-white p-2 shadow-xl">
             <Image
               src="/assets/images/home-side-1.webp"
@@ -22,7 +65,10 @@ const Hero5 = () => {
         </div>
 
         {/* Right Content */}
-        <div className="text-center lg:text-left max-w-2xl">
+        <div
+          ref={textRef}
+          className="text-center lg:text-left max-w-2xl opacity-0" // Start invisible
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#052540] leading-tight font-serif">
             Publish Digitally – Helping Your Story Come Alive
           </h2>
@@ -32,18 +78,12 @@ const Hero5 = () => {
             everything in between, our team guides you every step of the way so
             your voice can resonate with readers everywhere.
           </p>
-          {/* <button
-            onClick={openModal}
-            className="mt-6 inline-block bg-[#052540] hover:bg-[#03080c] text-white font-semibold px-8 py-3 rounded-md shadow-md hover:shadow-lg transition-all"
-          >
-            Get Started
-          </button> */}
 
-            <button
+          <button
             aria-label="Open get started modal"
             onClick={openModal}
-            className="
-    mt-6 group relative inline-flex items-center justify-center
+            className="mt-7
+    group relative inline-flex items-center justify-center
     overflow-hidden rounded-2xl px-10 py-3.5
     font-semibold tracking-wide text-white
     bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd]
@@ -107,11 +147,9 @@ const Hero5 = () => {
       transition-opacity duration-200
     "
             >
-              Get Started
+              Get A Quote
             </span>
           </button>
-
-
         </div>
       </div>
     </section>

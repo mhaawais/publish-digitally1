@@ -196,7 +196,7 @@ const Header = () => {
           <button
             type="button"
             onClick={openModal}
-            className="
+            className="animate-float
     group relative inline-flex items-center justify-center
     rounded-2xl px-6 py-3.5 font-semibold tracking-wide
     text-white overflow-hidden
@@ -259,7 +259,7 @@ const Header = () => {
         </div>
 
         <button
-          className="lg:hidden text-2xl"
+          className="lg:hidden text-2xl animate-float-delayed"
           onClick={() => setMenuOpen(true)}
         >
           <FaBars />

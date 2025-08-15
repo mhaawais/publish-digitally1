@@ -2,14 +2,57 @@ import React from "react";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa";
 import { useModal } from "@/app/context/ModalContext";
+import { useEffect, useRef } from "react";
 
 const Hero8 = () => {
   const { openModal } = useModal();
+
+    const imageRef = useRef<HTMLDivElement | null>(null); // For the image animation
+  const textRef = useRef<HTMLDivElement | null>(null); // For the text animation
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add specific animation class when element comes into view
+            if (entry.target === imageRef.current) {
+              imageRef.current.classList.add("animate-slide-in-left");
+            }
+            if (entry.target === textRef.current) {
+              textRef.current.classList.add("animate-slide-in-right");
+            }
+            observer.unobserve(entry.target); // Stop observing after animation is triggered
+          }
+        });
+      },
+      { threshold: 0.2 } // Trigger when 30% of the element is visible in the viewport
+    );
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
+
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+      if (textRef.current) {
+        observer.unobserve(textRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="relative bg-[#c2dee9] text-[#052540] overflow-hidden">
       <div className="relative z-10 px-4 sm:px-10 lg:px-24 py-12 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-14">
         {/* Left Content     underline decoration-wavy underline-offset-4 */}
-        <div className="w-full lg:w-1/2">
+        <div ref={imageRef}
+        className="w-full lg:w-1/2">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#052540] leading-tight mb-5 tracking-tight">
             Partner with <br />
             <span className="text-[#0c5671]">
@@ -137,7 +180,8 @@ const Hero8 = () => {
         </div>
 
         {/* Right Side Image */}
-        <div className="w-full lg:w-1/2 flex justify-center">
+        <div ref={textRef}
+        className="w-full lg:w-1/2 flex justify-center">
           <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl transition-transform duration-300 hover:scale-105">
             <Image
               src="/assets/images/home-side-1.webp"
