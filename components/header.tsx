@@ -16,21 +16,27 @@ import {
 } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
 import { useModal } from "@/app/context/ModalContext";
+import type { CSSProperties } from "react";
 
 function NavItem({
   href,
   children,
+  className = "",
+  style, // <-- add this
 }: {
   href: string;
   children: React.ReactNode;
+  className?: string;
+  style?: CSSProperties; // <-- and type it
 }) {
   return (
     <Link
       href={href}
-      className="flex items-center gap-2 rounded-lg px-3 py-2 transition
-                 hover:bg-slate-100 hover:text-[#0a6ebd] focus-visible:outline-none
-                 focus-visible:ring-2 focus-visible:ring-cyan-300"
+      className={`flex items-center gap-2 rounded-lg px-3 py-2 transition
+                  hover:bg-slate-100 hover:text-[#0a6ebd] focus-visible:outline-none
+                  focus-visible:ring-2 focus-visible:ring-cyan-300 ${className}`}
       role="menuitem"
+      style={style}
     >
       {children}
     </Link>
@@ -40,9 +46,29 @@ function NavItem({
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  // const servicesRef = useRef(null);
+
   const servicesRef = useRef<HTMLDivElement | null>(null);
   const { openModal } = useModal();
+
+  // --- NEW: small delay to prevent flicker when moving cursor button ↔ menu
+  const closeDelayMs = 120;
+  const closeTimerRef = useRef<number | null>(null);
+
+  const openNow = () => {
+    if (closeTimerRef.current) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setServicesOpen(true);
+  };
+
+  const scheduleClose = () => {
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = window.setTimeout(
+      () => setServicesOpen(false),
+      closeDelayMs
+    );
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -78,10 +104,18 @@ const Header = () => {
     };
   }, [menuOpen]);
 
-  return (
-    <header id="site-header" className="bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] text-white w-full fixed top-0 left-0 z-50 shadow-md">
-      {/* <header className="bg-[#052540] text-white w-full fixed lg:static top-0 left-0 z-50 shadow-md"> */}
+  // --- NEW: close when focus fully leaves (for keyboard users)
+  const handleBlurCapture: React.FocusEventHandler<HTMLDivElement> = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      setServicesOpen(false);
+    }
+  };
 
+  return (
+    <header
+      id="site-header"
+      className="bg-gradient-to-br from-[#051a2e] via-[#083b73] to-[#0a6ebd] text-white w-full fixed top-0 left-0 z-50 shadow-md"
+    >
       <div className="flex items-center justify-between px-4 py-2 lg:px-12 lg:py-1">
         <Link href="/">
           <Image
@@ -95,9 +129,17 @@ const Header = () => {
 
         <div className="hidden lg:flex items-center gap-8">
           <nav className="flex gap-6 items-center text-sm font-semibold">
-            <div className="relative" ref={servicesRef}>
+            {/* --- CHANGED: wrapper now manages hover + focus open/close */}
+            <div
+              className="relative"
+              ref={servicesRef}
+              onMouseEnter={openNow}
+              onMouseLeave={scheduleClose}
+              onFocusCapture={openNow}
+              onBlurCapture={handleBlurCapture}
+            >
               <button
-                onClick={() => setServicesOpen((o) => !o)}
+                onClick={() => setServicesOpen((o) => !o)} // tap/click support (mobile or mouse users who click)
                 aria-expanded={servicesOpen}
                 aria-controls="services-menu"
                 className="group inline-flex items-center gap-2 text-base font-semibold tracking-wide
@@ -106,8 +148,17 @@ const Header = () => {
               >
                 <span className="relative">
                   Services
-                  {/* underline grow on hover */}
-                  <span className="absolute -bottom-1 left-0 block h-[2px] w-0 bg-white/80 transition-all duration-500 group-hover:w-full" />
+                  {/* underline grow on hover 
+                  <span className="absolute -bottom-1 left-0 block h-[2px] w-0 bg-white/80 transition-all duration-500 group-hover:w-full" /> */}
+                  <span
+                    className="
+    pointer-events-none absolute -bottom-1 left-0 right-0 block h-[2px] w-full
+    origin-center scale-x-0 bg-white/80
+    transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)]
+    group-hover:scale-x-100
+    will-change-transform
+  "
+                  />
                 </span>
 
                 <FiChevronDown
@@ -118,15 +169,19 @@ const Header = () => {
                 />
               </button>
 
-              {/* Dropdown (kept mounted for smooth close). Animates opacity + translate + scaleY */}
+              {/* kept mounted for smooth close; submenu also keeps itself open on hover */}
               <div
                 id="services-menu"
                 role="menu"
+                onMouseEnter={openNow}
+                onMouseLeave={scheduleClose}
                 className={[
                   "absolute top-full mt-3 z-50 w-80 origin-top transform-gpu",
                   "rounded-xl border border-white/60 bg-[#c2dee9] backdrop-blur-md",
                   "shadow-2xl ring-1 ring-black/5 p-4 grid grid-cols-2 gap-2 text-sm font-medium text-[#052540]",
-                  "transition-[opacity,transform] duration-500 ease-out",
+                  // smoother reveal: opacity + translate + scaleY
+                  "transition-[opacity,transform] duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
+                  "will-change-[opacity,transform] motion-reduce:transition-none motion-reduce:transform-none",
                   servicesOpen
                     ? "opacity-100 translate-y-0 scale-y-100 pointer-events-auto"
                     : "opacity-0 -translate-y-2 scale-y-95 pointer-events-none",
@@ -135,12 +190,89 @@ const Header = () => {
                   "before:bg-white/90 before:backdrop-blur-md before:border-l before:border-t before:border-white/60",
                 ].join(" ")}
               >
-                <NavItem href="/book-editing">📘 Book Editing</NavItem>
-                <NavItem href="/audio-book">🎧 Audio Book</NavItem>
-                <NavItem href="/cover-design">🎨 Cover Design</NavItem>
-                <NavItem href="/author-website">🌐 Website</NavItem>
-                <NavItem href="/book-video">🎥 Book Video</NavItem>
-                <NavItem href="/illustration">🖌️ Illustration</NavItem>
+                <NavItem
+                  href="/book-editing"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "80ms" }}
+                >
+                  📘 Book Editing
+                </NavItem>
+
+                <NavItem
+                  href="/audio-book"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "125ms" }}
+                >
+                  🎧 Audio Book
+                </NavItem>
+
+                <NavItem
+                  href="/cover-design"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "170ms" }}
+                >
+                  🎨 Cover Design
+                </NavItem>
+
+                <NavItem
+                  href="/author-website"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "215ms" }}
+                >
+                  🌐 Website
+                </NavItem>
+
+                <NavItem
+                  href="/book-video"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "260ms" }}
+                >
+                  🎥 Book Video
+                </NavItem>
+
+                <NavItem
+                  href="/illustration"
+                  className={[
+                    "transition-all duration-300 ease-out will-change-transform",
+                    "motion-reduce:transition-none",
+                    servicesOpen
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-1",
+                  ].join(" ")}
+                  style={{ transitionDelay: "305ms" }}
+                >
+                  🖌️ Illustration
+                </NavItem>
               </div>
             </div>
 
@@ -149,7 +281,6 @@ const Header = () => {
               className="relative text-base font-semibold hover:text-gray-300 group"
             >
               Book Publishing
-              {/* <span className="block h-[2px] w-0 bg-white transition-all duration-500 group-hover:w-full"></span> */}
               <span className="block h-[2px] w-0 bg-white transition-all duration-500 group-hover:w-full origin-center mx-auto"></span>
             </Link>
 
@@ -186,13 +317,6 @@ const Header = () => {
             </Link>
           </nav>
 
-          {/* <button
-            onClick={openModal}
-            className="bg-[#c5d1d8] hover:bg-[#cdcdd3] text-black px-6 py-4 rounded-lg shadow hover:shadow-lg transition-all font-bold"
-          >
-            Get Started
-          </button> */}
-
           <button
             type="button"
             onClick={openModal}
@@ -209,7 +333,6 @@ const Header = () => {
   "
             aria-label="Get Started"
           >
-            {/* ambient depth */}
             <span
               className="
       pointer-events-none absolute inset-[-2px] rounded-2xl
@@ -217,8 +340,6 @@ const Header = () => {
           radial-gradient(140px_90px_at_80%_30%,rgba(255,255,255,.18),transparent)]
     "
             />
-
-            {/* slow gradient sweep on hover */}
             <span
               className="
       absolute inset-0 -translate-x-full group-hover:translate-x-0
@@ -226,8 +347,6 @@ const Header = () => {
       bg-gradient-to-r from-white/10 via-white/20 to-white/10 opacity-90
     "
             />
-
-            {/* glossy shine pass */}
             <span
               className="
       pointer-events-none absolute -left-1/3 top-0 h-full w-1/3
@@ -236,8 +355,6 @@ const Header = () => {
       transition-transform duration-[1400ms] ease-out blur-[2px]
     "
             />
-
-            {/* content with arrow visible initially */}
             <span className="relative z-10 flex items-center gap-2">
               <span>Get Started</span>
               <svg
@@ -255,7 +372,6 @@ const Header = () => {
               </svg>
             </span>
           </button>
-
         </div>
 
         <button
@@ -378,16 +494,6 @@ const Header = () => {
           </div>
         </nav>
 
-        {/* <button
-          onClick={() => {
-            openModal();
-            setMenuOpen(false);
-          }}
-          className="mt-6 w-full bg-[#c5d1d8] hover:bg-[#cdcdd3] text-black py-3 rounded-md font-bold"
-        >
-          Get Started
-        </button> */}
-
         <button
           type="button"
           onClick={() => {
@@ -407,7 +513,6 @@ const Header = () => {
   "
           aria-label="Get Started"
         >
-          {/* ambient depth */}
           <span
             className="
       pointer-events-none absolute inset-[-2px] rounded-xl
@@ -415,8 +520,6 @@ const Header = () => {
           radial-gradient(140px_90px_at_80%_30%,rgba(255,255,255,.18),transparent)]
     "
           />
-
-          {/* slow gradient sweep on hover */}
           <span
             className="
       absolute inset-0 -translate-x-full group-hover:translate-x-0
@@ -424,8 +527,6 @@ const Header = () => {
       bg-gradient-to-r from-white/10 via-white/20 to-white/10 opacity-90
     "
           />
-
-          {/* glossy shine pass */}
           <span
             className="
       pointer-events-none absolute -left-1/3 top-0 h-full w-1/3
@@ -434,8 +535,6 @@ const Header = () => {
       transition-transform duration-[1400ms] ease-out blur-[2px]
     "
           />
-
-          {/* content with arrow visible initially */}
           <span className="relative z-10 flex items-center gap-2">
             <span>Get Started</span>
             <svg
@@ -519,3 +618,4 @@ const Header = () => {
 };
 
 export default Header;
+

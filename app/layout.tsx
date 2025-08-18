@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ModalProvider } from '@/app/context/ModalContext'
+import { ModalProvider } from "@/app/context/ModalContext";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,25 +23,26 @@ export const metadata: Metadata = {
     template: "%s | Publish Digitally",
     default: "Publish Digitally | Book publishing services",
   },
-  description: "Publish Digitally offers end-to-end publishing services for modern authors—from ghostwriting and editing to design, websites, audiobooks, and promotion. We turn your story into a bestseller with precision, creativity, and legacy-driven excellence.",
-   keywords: [
-    'Publish Digitally',
-    'Book publishing services',
-    'Ghostwriting agency',
-    'Professional book editing',
-    'Custom book cover design',
-    'Author website design',
-    'Audiobook production',
-    'Book video trailers',
-    'Illustration services for books',
-    'Book marketing and promotions',
-    'Self-publishing support',
-    'Amazon book publishing',
-    'Book writing help',
-    'Children’s book illustration',
-    'SEO book content',
-    'Author brand building',
-    'Turn manuscript into bestseller',
+  description:
+    "Publish Digitally offers end-to-end publishing services for modern authors—from ghostwriting and editing to design, websites, audiobooks, and promotion. We turn your story into a bestseller with precision, creativity, and legacy-driven excellence.",
+  keywords: [
+    "Publish Digitally",
+    "Book publishing services",
+    "Ghostwriting agency",
+    "Professional book editing",
+    "Custom book cover design",
+    "Author website design",
+    "Audiobook production",
+    "Book video trailers",
+    "Illustration services for books",
+    "Book marketing and promotions",
+    "Self-publishing support",
+    "Amazon book publishing",
+    "Book writing help",
+    "Children’s book illustration",
+    "SEO book content",
+    "Author brand building",
+    "Turn manuscript into bestseller",
   ],
   icons: {
     icon: [
@@ -215,12 +218,15 @@ export default function RootLayout({
             animation-delay: calc(var(--stagger) * 0.1s);
           }
         `}</style>
-        </head>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ModalProvider>
-        {children}
+          <Header />
+            <div className="h-[72px]" aria-hidden />
+            {children}
+          <Footer />
         </ModalProvider>
       </body>
     </html>

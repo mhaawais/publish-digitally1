@@ -1,7 +1,5 @@
 "use client";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
 import React, { useState } from "react";
 import { useModal } from "@/app/context/ModalContext";
 import ModalForm from "@/components/ModalForm";
@@ -47,7 +45,6 @@ const Bookvideo = () => {
   if (!currentTab) return null;
   return (
     <div>
-      <Header />
 
       <section className="relative w-full h-screen overflow-hidden">
         {/* Top Wave */}
@@ -455,7 +452,6 @@ const Bookvideo = () => {
       <Hero12 />
 
       <ModalForm />
-      <Footer />
     </div>
   );
 };

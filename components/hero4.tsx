@@ -15,7 +15,8 @@ const Hero4 = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Add the animation class when the element enters the viewport
-            entry.target.classList.add("animate-fade-in-up"); // Adjust with any animation class you want
+          //  entry.target.classList.add("animate-fade-in-up"); // Adjust with any animation class you want
+            entry.target.classList.add("animate-scale-in");
             observer.unobserve(entry.target); // Stop observing after animation is triggered
           }
         });

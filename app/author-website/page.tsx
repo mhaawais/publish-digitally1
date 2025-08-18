@@ -1,7 +1,6 @@
 "use client";
 
-import Footer from "@/components/footer";
-import Header from "@/components/header";
+
 import React, { useState } from "react";
 import { useModal } from "@/app/context/ModalContext";
 import ModalForm from "@/components/ModalForm";
@@ -47,7 +46,6 @@ const Authorwebsite = () => {
   if (!currentTab) return null;
   return (
     <div>
-      <Header />
 
       <section className="relative w-full h-screen overflow-hidden">
         {/* Top Wave */}
@@ -431,7 +429,6 @@ const Authorwebsite = () => {
       <Hero12 />
 
       <ModalForm />
-      <Footer />
     </div>
   );
 };

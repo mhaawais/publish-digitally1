@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import React from "react";
 import { useModal } from "@/app/context/ModalContext";
 import ModalForm from "@/components/ModalForm";
@@ -11,10 +9,9 @@ const Terms = () => {
 
   return (
     <>
-      <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-[url('/assets/images/terms.jpeg')] bg-cover bg-center h-[50vh] flex items-center justify-center">
+      <section className="relative bg-[url('/assets/images/terms.jpeg')] bg-cover bg-center h-[40vh] flex justify-center items-center">
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl font-bold text-white drop-shadow-md font-serif">
@@ -231,7 +228,6 @@ const Terms = () => {
       </section>
 
       <ModalForm />
-      <Footer />
     </>
   );
 };
