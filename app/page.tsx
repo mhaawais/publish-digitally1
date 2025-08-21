@@ -34,3 +34,26 @@ export default function Home() {
       </div>
   );
 }
+
+
+
+
+
+  // ALL ANNIMATIONS ::
+
+  //         .animate-float           
+  //         .animate-float-delayed           
+  //         .animate-fade-in-up           
+  //         .animate-slide-in-left
+  //         .animate-slide-in-right          
+  //         .animate-scale-in      
+  //         .animate-bounce-slow          
+  //         .animate-fade-in           
+  //         .animate-pulse-glow          
+  //         .animate-typewriter           
+  //         .animate-slide-up           
+  //         .hover-lift:hover          
+  //         .hover-glow:hover        
+  //         .group:hover .group-hover-scale        
+  //         .stagger-animation 
+
